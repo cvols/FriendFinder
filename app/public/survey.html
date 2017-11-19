@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <title>Friend Finder</title>
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h1>Survey Questions</h1>
+                </div>
+            </div>
+            <h3>About You</h3>
+            <div class="row">
+
+                <div class="input-field col s12">
+                    <input id="name" type="text" class="validate">
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="photo" type="text" class="validate">
+                    <label for="photo">Link to Photo Image</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <form class="col s12">
+                    <h4>Question 1</h4>
+                    <p class="flow-text">Your mind is always buzzing with unexplored ideas and plans.</p>
+                    <div class="input-field col s3">
+                        <select id="questionOne">
+                            <option value="" disabled selected>Select an Option</option>
+                            <option value="1">1 (Strongly Disagree)</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5 (Strongly Agree)</option>
+                        </select>
+                    </div>
+                </form>
+                <form class="col s12">
+                    <h4>Question 2</h4>
+                    <p class="flow-text">Generally speaking, you rely more on your experience than your imagination.</p>
+                    <div class="input-field col s3">
+                        <select id="questionTwo">
+                            <option value="" disabled selected>Select an Option</option>
+                            <option value="1">1 (Strongly Disagree)</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5 (Strongly Agree)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="row">
+                <a href="../data/friends">
+                    <button class="col s12 btn waves-effect waves-light btn-large z-depth-5" type="submit" id="submit" name="action">Submit</button>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+
+        $('#submit').on('click', function (e) {
+            event.preventDefault()
+
+
+            var newUser = {
+                name: $('#name').val().trim(),
+                photo: $('#photo').val().trim(),
+                scores: [$('#questionOne').val(), $('#questionTwo').val()]
+            }
+
+            console.log(newUser)
+
+            var currentURL = window.location.origin
+
+            $.post('/survey', newUser, function(data) {
+                
+            })
+            .done(function (data) {
+                alert('Comparing ' + newUser.name + ' with other users...')
+            })
+
+        })
+    })
+
+</script>
+
+</html>
